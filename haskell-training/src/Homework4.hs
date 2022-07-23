@@ -1,3 +1,6 @@
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+
+{-# HLINT ignore "Use map" #-}
 module Homework4 where
 
 import Data.List
@@ -55,4 +58,16 @@ foldTree = foldr pushNode Leaf
 
 -- exercise 3
 xor :: [Bool] -> Bool
-xor xs = foldr (\x y -> not y) False $ filter (== True) xs
+xor xs = foldr (\_ y -> not y) False $ filter (== True) xs
+
+map' :: (a -> b) -> [a] -> [b]
+map' f = foldr (\x xs -> f x : xs) []
+
+-- exercise 4
+cartProd :: [a] -> [b] -> [(a, b)]
+cartProd xs ys = [(x, y) | x <- xs, y <- ys]
+
+sieveSundaram :: Integer -> [Integer]
+sieveSundaram n = map (\x -> x * 2 + 1) $ [1..n] \\ to_remove
+  where
+    to_remove = [x + y + 2 * x * y | x <- [1 .. n], y <- [1 .. n], y <= x, x + y + 2 * x * y <= n]
