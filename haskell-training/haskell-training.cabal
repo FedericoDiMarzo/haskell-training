@@ -25,11 +25,14 @@ source-repository head
 
 library
   exposed-modules:
+      ExprT
       Homework1
       Homework2
       Homework3
       Homework4
+      Homework5
       Log
+      Parser
   other-modules:
       Paths_haskell_training
   hs-source-dirs:
