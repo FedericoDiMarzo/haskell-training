@@ -10,7 +10,7 @@ fun1 (x : xs)
   | otherwise = fun1 xs
 
 fun1' :: [Integer] -> Integer
-fun1' xs = foldr (\x y -> (x - 2) * y) 1 (filter even xs)
+fun1' xs = foldr (\x y -> (x - 2) * y) 1 $ filter even xs
 
 fun2 :: Integer -> Integer
 fun2 1 = 0
@@ -19,7 +19,7 @@ fun2 n
   | otherwise = fun2 (3 * n + 1)
 
 fun2' :: Integer -> Integer
-fun2' n = sum (filter even (takeWhile (/= 1) (iterate f n)))
+fun2' n = sum (filter even $ takeWhile (/= 1) (iterate f n))
   where
     f x = f_even x + f_odd x
     f_even x = (1 - (x `mod` 2)) * (x `div` 2)
@@ -52,3 +52,7 @@ pushNode x (Node depth left v right) =
 
 foldTree :: [a] -> Tree a
 foldTree = foldr pushNode Leaf
+
+-- exercise 3
+xor :: [Bool] -> Bool
+xor xs = foldr (\x y -> not y) False $ filter (== True) xs
