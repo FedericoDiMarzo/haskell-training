@@ -1,18 +1,21 @@
+{-# LANGUAGE FlexibleInstances #-}
+
 module Homework5 where
 
 import ExprT
 import Parser
+import StackVM
 
 -- exercise 1
 eval :: ExprT -> Integer
 eval (Lit n) = n
-eval (Add a b) = eval a + eval b
-eval (Mul a b) = eval a * eval b
+eval (ExprT.Add a b) = eval a + eval b
+eval (ExprT.Mul a b) = eval a * eval b
 
 -- exercise 2
 evalStr :: String -> Maybe Integer
 evalStr s =
-  let parsed = parseExp Lit Add Mul s
+  let parsed = parseExp Lit ExprT.Add ExprT.Mul s
    in case parsed of
         Nothing -> Nothing
         Just exp -> Just (eval exp)
@@ -25,8 +28,8 @@ class Expr e where
 
 instance Expr ExprT where
   lit n = Lit n
-  add a b = Add a b
-  mul a b = Mul a b
+  add a b = ExprT.Add a b
+  mul a b = ExprT.Mul a b
 
 -- exercise 4
 instance Expr Integer where
@@ -56,7 +59,6 @@ instance Expr Mod7 where
   mul a@(Mod7 x) b@(Mod7 y) = Mod7 ((x * y) `mod` 7)
 
 -- texts exercise 4
-
 testExp :: Expr a => Maybe a
 testExp = parseExp lit add mul "(3 * -4) + 5"
 
@@ -67,3 +69,12 @@ testBool = testExp :: Maybe Bool
 testMM = testExp :: Maybe MinMax
 
 testSat = testExp :: Maybe Mod7
+
+-- exercise 5
+instance Expr Program where
+  lit x = [PushI x]
+  add a b = a ++ b ++ [StackVM.Add]
+  mul a b = a ++ b ++ [StackVM.Mul]
+
+compile :: String -> Maybe Program
+compile s = parseExp lit add mul s :: Maybe Program
