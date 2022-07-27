@@ -31,8 +31,10 @@ library
       Homework3
       Homework4
       Homework5
+      Homework6
       Log
       Parser
+      StackVM
   other-modules:
       Paths_haskell_training
   hs-source-dirs:
