@@ -14,8 +14,8 @@ Then load a specific exercise inside `ghci`
  - [x] Homework1
  - [x] Homework2
  - [x] Homework3
- - [ ] Homework4
- - [ ] Homework5
+ - [x] Homework4
+ - [x] Homework5
  - [ ] Homework6
  - [ ] Homework7
  - [ ] Homework8
