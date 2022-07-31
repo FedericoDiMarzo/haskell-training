@@ -1,3 +1,6 @@
+### Haskell Training ###
+A collection of exercises from [Yorgey's cis1940 course](https://www.seas.upenn.edu/~cis1940/spring13/lectures.html).
+
 ## Run the exercises ##
 In order to execute the code of the exercises, install [stack](https://docs.haskellstack.org/en/stable/README/) and run the following command inside the inner directory haskell-training.
 
